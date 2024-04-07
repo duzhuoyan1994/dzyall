@@ -16,7 +16,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 /**
  * @author ：duzhuoyan
  * @date ：Created in 2024/4/4 23:54
- * @description： kafka sink的案例
+ * @description： kafka sink的案例  未测试
  */
 public class CusKafkaSink {
 

@@ -9,7 +9,7 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 /**
  * @author ：duzhuoyan
  * @date ：Created in 2024/4/4 11:47
- * @description： 使用kafka自带的source读取kafka中的数据
+ * @description： 使用kafka自带的source读取kafka中的数据  （未测试）
  *                要注意的是在1.17.1中，读取FlinkKafkaConsumer的这个类已经准备废弃了，使用kafkasource了
  *
  */
