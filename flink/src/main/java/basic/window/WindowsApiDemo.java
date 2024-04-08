@@ -54,6 +54,7 @@ public class WindowsApiDemo {
 //        dataWindow.aggregate();
 
         //全窗口函数：数据来了不计算，存起来，窗口触发的时候才开始计算并且输出结果
+        //而且全窗口函数是可以取到上下文的一些信息，比如窗口的触发时间，开始和结束时间等等
 //        dataWindow.process();
 //        dataWindow.apply();
 
