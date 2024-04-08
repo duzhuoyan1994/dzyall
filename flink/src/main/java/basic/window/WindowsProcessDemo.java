@@ -10,6 +10,7 @@ import org.apache.flink.streaming.api.datastream.WindowedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.windowing.ProcessWindowFunction;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
+import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
@@ -26,7 +27,7 @@ public class WindowsProcessDemo {
         SingleOutputStreamOperator<WaterSenor> dataSource = env.socketTextStream("10.0.0.84", 1111).map(new WaterSenorMapFunction());
         KeyedStream<WaterSenor, String> dataSourceKeyby = dataSource.keyBy(WaterSenor::getId);
         //窗口分配器
-        WindowedStream<WaterSenor, String, TimeWindow> window = dataSourceKeyby.window(TumblingEventTimeWindows.of(Time.seconds(5)));
+        WindowedStream<WaterSenor, String, TimeWindow> window = dataSourceKeyby.window(TumblingProcessingTimeWindows.of(Time.seconds(5)));
         //process 这个是全窗口，也就是说不会来一条计算一条，而是先降数据全部缓存起来，窗口的触发时间到了之后，然后再进行全部计算
         SingleOutputStreamOperator<String> process = window.process(new ProcessWindowFunction<WaterSenor, String, String, TimeWindow>() {
             @Override
@@ -38,7 +39,7 @@ public class WindowsProcessDemo {
                 String windowEnd = DateFormatUtils.format(endTs, "yyyy-MM-dd HH:mm:ss");
 
                 long count = elements.spliterator().estimateSize();
-                out.collect("key=" + s + "的窗口[" + windowStart + "," + windowEnd + "]包含" + count + "条数据==>" + elements.toString());
+                out.collect("key=" + s + "的窗口[" + windowStart + "," + windowEnd + ")包含" + count + "条数据==>" + elements.toString());
             }
         });
         process.print();

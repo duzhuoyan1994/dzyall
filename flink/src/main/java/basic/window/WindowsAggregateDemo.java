@@ -9,6 +9,7 @@ import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.datastream.WindowedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows;
+import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 
@@ -24,7 +25,7 @@ public class WindowsAggregateDemo {
         SingleOutputStreamOperator<WaterSenor> dataSource = env.socketTextStream("10.0.0.84", 1111).map(new WaterSenorMapFunction());
         KeyedStream<WaterSenor, String> dataSourceKeyby = dataSource.keyBy(WaterSenor::getId);
         //窗口分配器
-        WindowedStream<WaterSenor, String, TimeWindow> window = dataSourceKeyby.window(TumblingEventTimeWindows.of(Time.seconds(5)));
+        WindowedStream<WaterSenor, String, TimeWindow> window = dataSourceKeyby.window(TumblingProcessingTimeWindows.of(Time.seconds(5)));
         //aggregate也是每来一条数据就会调用一次add方法，和reduce不同的是，aggregate在第一条数据来的时候也会被调用，但是有一个累加器的初始值
         SingleOutputStreamOperator<String> aggregate = window.aggregate(new AggregateFunction<WaterSenor, Integer, String>() {
             @Override
