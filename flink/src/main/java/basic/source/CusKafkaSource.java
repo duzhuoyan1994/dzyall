@@ -24,6 +24,7 @@ public class CusKafkaSource {
                 .setStartingOffsets(OffsetsInitializer.earliest())
                 .setValueOnlyDeserializer(new SimpleStringSchema())
                 .build();
+        //WatermarkStrategy.noWatermarks()  注意的是在source的时候，也可以设置watermark，如果在source端设置了，那么就不需要在后面的流中进行设置了
         env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(),"kakfa-source").print();
         env.execute("kafka-source");
 
