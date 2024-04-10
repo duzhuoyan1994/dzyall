@@ -6,6 +6,8 @@ import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
+import java.time.Duration;
+
 /**
  * @author ：duzhuoyan
  * @date ：Created in 2024/4/10 18:07
@@ -26,10 +28,15 @@ public class CheckpointConfigDemo {
         env.getCheckpointConfig().setMaxConcurrentCheckpoints(1);
         //最小等待间隔 上一轮checkpoint结束到下一轮checkpoint开始之间的间隔
         env.getCheckpointConfig().setMinPauseBetweenCheckpoints(1000);
-        //保存取消作业时，checkpoint的数据保留在外部系统
+        //保存取消作业时，checkpoint的数据不保留在外部系统，checkpoint也一起删除了
         env.getCheckpointConfig().setExternalizedCheckpointCleanup(CheckpointConfig.ExternalizedCheckpointCleanup.DELETE_ON_CANCELLATION);
         //允许checkpoint连续失败的次数，默认是0，表示checkpoint一失败，job就挂掉
         env.getCheckpointConfig().setTolerableCheckpointFailureNumber(10);
+
+        //开启非对齐的检查点，开启之后的要求：必须是精确一次，最大并发为1
+        env.getCheckpointConfig().enableUnalignedCheckpoints();
+        //下面这个参数开启非对齐的检查点才生效，默认是0，表示一开始就使用非对齐，如果有下面这个参数，那表示刚开始使用对齐的，然后超过这个时间的话，那就使用非对齐的
+        env.getCheckpointConfig().setAlignedCheckpointTimeout(Duration.ofSeconds(1));
 
 
         env.socketTextStream("",1111)
