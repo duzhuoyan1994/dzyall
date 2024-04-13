@@ -17,6 +17,10 @@ import org.apache.kafka.clients.producer.ProducerConfig;
  * @author ：duzhuoyan
  * @date ：Created in 2024/4/4 23:54
  * @description： kafka sink的案例  未测试
+ *   如果要保证flink写kafka的精确一次，需要满足三个条件：
+ *   1.开启2pc，也就是说一致性级别是精确一次
+ *   2.有事务前缀
+ *   3.设置事务的超时时间
  */
 public class CusKafkaSink {
 
@@ -39,7 +43,7 @@ public class CusKafkaSink {
                         .setTopic("")
                         .setValueSerializationSchema(new SimpleStringSchema())
                         .build())
-                //写到kafka的一致性级别
+                //如果是精确一次，要保证一致性级别是精确一次
                 .setDeliveryGuarantee(DeliveryGuarantee.EXACTLY_ONCE)
                 //如果是精确一次，必须设置事务的前缀
                 .setTransactionalIdPrefix("du-")

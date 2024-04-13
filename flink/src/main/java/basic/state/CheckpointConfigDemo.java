@@ -38,6 +38,9 @@ public class CheckpointConfigDemo {
         //下面这个参数开启非对齐的检查点才生效，默认是0，表示一开始就使用非对齐，如果有下面这个参数，那表示刚开始使用对齐的，然后超过这个时间的话，那就使用非对齐的
         env.getCheckpointConfig().setAlignedCheckpointTimeout(Duration.ofSeconds(1));
 
+        //开启增量checkpoint，要求checkpoint的最大并发为1，其他参数建议在flink-conf配置文件中指定
+        env.enableChangelogStateBackend(true);
+
 
         env.socketTextStream("",1111)
                 .map(line -> Tuple2.of(line.split(" ")[0],line.split(" ")[0]))
