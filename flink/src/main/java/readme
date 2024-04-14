@@ -1,0 +1,8 @@
+basic  flink基础功能的一些演示案例
+    basic.source   flink source的练习案例
+    basic.sink     flink  sink的练习案例
+    basic.state    flink中状态，checkpoint 练习案例
+    basic.watermark  flink中水位线的练习案例
+    basic.window   flink中window的练习案例
+bean  存放java bean的包
+function  一些在flink中，自定义的function
