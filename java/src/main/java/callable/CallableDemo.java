@@ -1,6 +1,7 @@
 package callable;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 /**
@@ -20,16 +21,25 @@ class MyThread2 implements Callable{
     }
 }
 public class CallableDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         //Runnable
         new Thread(new MyThread1(),"aa").start();
 
         //Callable
         FutureTask<Integer> task1 = new FutureTask<>(new MyThread2());
 
-        FutureTask<Integer> task2 =new FutureTask<>(()->{
+        FutureTask<Integer> task2 =new FutureTask<>(()-> {
+            System.out.println(Thread.currentThread().getName()+" come in callable");
             return 1024;
         });
+
+        //创建一个线程
+        new Thread(task2,"lucy").start();
+        while(!task2.isDone()){
+            System.out.println("wait...");
+        }
+        System.out.println(task2.get()); //只有第一次的get方法需要计算，之后如果再调用get的话，直接返回
+        System.out.println(Thread.currentThread().getName()+" come over");
 
     }
 
