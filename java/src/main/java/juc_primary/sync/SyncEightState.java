@@ -1,4 +1,4 @@
-package sync;
+package juc_primary.sync;
 
 import java.util.concurrent.TimeUnit;
 

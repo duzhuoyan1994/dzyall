@@ -1,8 +1,6 @@
-package lock;
+package juc_primary.lock;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author ：duzhuoyan

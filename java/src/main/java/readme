@@ -1,0 +1,10 @@
+juc_primary 本包是尚硅谷juc并发编程初级视频的代码示例
+    juc_primary.blockqueue  阻塞队列
+    juc_primary.callable  callable接口
+    juc_primary.completable  CompletableFuture异步回调
+    juc_primary.forkjoin  Fork/Join分支合并框架
+    juc_primary.jucaux  juc的辅助类
+    juc_primary.lock  lock锁
+    juc_primary.readwrite  读写锁
+    juc_primary.sync  synchronized锁
+    juc_primary.threadpool  线程池

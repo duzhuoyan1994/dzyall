@@ -1,6 +1,5 @@
-package jucaux;
+package juc_primary.jucaux;
 
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 /**

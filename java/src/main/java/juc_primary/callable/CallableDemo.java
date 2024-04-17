@@ -1,4 +1,4 @@
-package callable;
+package juc_primary.callable;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -7,7 +7,7 @@ import java.util.concurrent.FutureTask;
 /**
  * @author ：duzhuoyan
  * @date ：Created in 2024/4/16 18:29
- * @description： callable 接口的demo演示
+ * @description： juc_primary.callable 接口的demo演示
  */
 class MyThread1 implements Runnable{
     @Override
@@ -29,7 +29,7 @@ public class CallableDemo {
         FutureTask<Integer> task1 = new FutureTask<>(new MyThread2());
 
         FutureTask<Integer> task2 =new FutureTask<>(()-> {
-            System.out.println(Thread.currentThread().getName()+" come in callable");
+            System.out.println(Thread.currentThread().getName()+" come in juc_primary.callable");
             return 1024;
         });
 

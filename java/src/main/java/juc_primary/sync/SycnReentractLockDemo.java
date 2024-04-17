@@ -1,4 +1,4 @@
-package sync;
+package juc_primary.sync;
 
 /**
  * @author ：duzhuoyan

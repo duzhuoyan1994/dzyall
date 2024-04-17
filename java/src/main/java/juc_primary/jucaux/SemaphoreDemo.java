@@ -1,4 +1,4 @@
-package jucaux;
+package juc_primary.jucaux;
 
 import java.util.Random;
 import java.util.concurrent.Semaphore;

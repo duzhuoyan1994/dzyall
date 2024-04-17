@@ -1,4 +1,4 @@
-package readwrite;
+package juc_primary.readwrite;
 
 import java.util.HashMap;
 import java.util.Map;
